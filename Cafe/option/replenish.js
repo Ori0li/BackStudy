@@ -1,18 +1,23 @@
-const { env } = require("../env.js");
-const { askQuestion } = require("../func/prompt");
-const { Option } = require("./option");
-const fs = require("fs");
+const { Option } = require("./option.js");
 
 class ReplenishOption extends Option {
+  #inventoryManager;
+  #promptManager;
+  #dataManager;
+  constructor(inventoryManager, promptManager, dataManager) {
+    super();
+    this.#inventoryManager = inventoryManager;
+    this.#promptManager = promptManager;
+    this.#dataManager = dataManager;
+  }
+
   async execute(data) {
-    console.log("재고 채우기 시작!");
-    data.forEach((v) => v.introduce());
-    const menu = await askQuestion("번호 입력:");
-    const amount = await askQuestion("몇개 추가:");
-    data[+menu].addStock(+amount);
-    const saveData = { coffeeMenu: data.map((v) => v.makeObj()) };
-    fs.writeFileSync(env.dataStore, JSON.stringify(saveData), "utf-8");
-    console.log("재고 업데이트 완료!");
+    this.#promptManager.makeConsole("재고 넣기 시작!");
+    this.#inventoryManager.listProduct(data);
+    const [menu, amount] = await this.#promptManager.askNumberAndAmount();
+    this.#inventoryManager.replenishProduct(data[+menu], +amount);
+    this.#dataManager.saveData("coffeeMenu", data);
+    this.#promptManager.makeConsole("재고 업데이트 완료!");
   }
 }
 

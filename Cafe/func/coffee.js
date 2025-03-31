@@ -7,21 +7,29 @@ class Coffee {
     this.#stock = stock;
     this.#price = price;
   }
-
-  introduce() {
-    console.log(`${this.#name} ${this.#stock}`);
+  getName() {
+    return this.#name;
   }
-  addStock(stock) {
-    this.#stock += stock;
-  }
-  substractStock(stock) {
-    this.#stock -= stock;
+  getStock() {
+    return this.#stock;
   }
   getPrice() {
     return this.#price;
   }
-  makeObj() {
-    return { name: this.#name, stock: this.#stock, price: this.#price };
+  setName(name) {
+    this.#name = name;
+  }
+  setStock(stock) {
+    if (this.#stock - stock < 0) {
+      console.log("수량이 음수가 될 수 없습니다.");
+    }
+    this.#stock += stock;
+  }
+  setPrice(price) {
+    if (price < 0) {
+      console.log("가격이 음수가 될 수 없습니다.");
+    }
+    this.#price += price;
   }
 }
 module.exports = { Coffee };
