@@ -1,1 +1,7 @@
-{"coffeeMenu":[{"name":"아메리카노","stock":60,"price":3000},{"name":"우유라떼","stock":15,"price":3500},{"name":"두유라떼","stock":30,"price":4000}]}
+{
+  "coffeeMenu": [
+    { "name": "아메리카노", "stock": 60, "price": 3000 },
+    { "name": "우유라떼", "stock": 15, "price": 3500 },
+    { "name": "두유라떼", "stock": 30, "price": 4000 }
+  ]
+}
